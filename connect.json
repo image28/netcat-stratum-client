@@ -1,0 +1,5 @@
+{"id":"0","jsonrpc":"2.0","method":"login","params":{"agent":"grin-miner","login":"WALLET-ADDRESS-HERE","pass":"x"}}
+{"id":"1","jsonrpc":"2.0","method":"getjobtemplate","params":null}
+{"id":"2","jsonrpc":"2.0","method":"keepalive","params":null}
+{"id":"3","method":"mining.subscribe","params":[]}
+{"id":"4","method":"mining.extranonce.subscribe","params":[]}
