@@ -9,7 +9,7 @@ Add server and port to the .sh file and your wallet address to the json file.
 
 To add other coins one would load a packet capture tool ( wireshark/pcap ) and watch a client connect, get work and send a share back.
 Modifiying the json file as needed or creating a new json file for each coin.
-
+<BR><HR><BR>
 <B>Donations/Requests :</B>
 <UL>
 <LI>BTC 341T2ew7f3aZafjfmhQWRhJ3VaA3pcHCCL</LI>
