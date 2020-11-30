@@ -19,7 +19,8 @@ function work()
 	
 	echo "Working on jobid $JOBID on date $DATE at height $HEIGHT with nonce of $NONCE"
 	./mean31x8 -n $NONCE -a -t 8 -r 64 `cat joblog-$DATE | tail -n1 | rev | awk -F'"' '{print $2}' | rev` > worklog-$DATE
-	 
+	
+	#https://stackoverflow.com/questions/18892411/shell-script-to-trigger-a-command-with-every-new-line-in-to-a-file
 	tail -f work-$DATE | while IFS='' read line; do
 		WORK=`echo $line | grep -E --line-buffered "^nonce" | rev | awk -F' ' '{print $1 "," $2 "," $3 "," $4}' | rev &`
 		submit "$NONCE" "$HEIGHT" "$JOBID" "$WORK"
