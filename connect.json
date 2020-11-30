@@ -1,3 +1,3 @@
-{"id":"0","jsonrpc":"2.0","method":"login","params":{"agent":"grin-miner","login":"2aHR0cHM6Ly9td2Nwcm94eS5iaXRmb3JleC5jb20vMjQwMDc2Mw.image28","pass":"x"}}
+{"id":"0","jsonrpc":"2.0","method":"login","params":{"agent":"grin-miner","login":"","pass":"x"}}
 {"id":"1","jsonrpc":"2.0","method":"getjobtemplate","params":null}
 {"id":"2","jsonrpc":"2.0","method":"status","params":null}
