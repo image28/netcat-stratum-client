@@ -7,7 +7,7 @@ Add server and port to the .sh file and your wallet address to the json file.
 # ./build.sh          # compile mean31x8 miner
 # . ./connect.sh      # load functions into bash
 # work                # work 1 job
-# status              # loging and show status
+# status              # login and show status # doesn't work on all pools
 # login               # login and get work
 
 To add other coins one would load a packet capture tool ( wireshark/pcap ) and watch a client connect, get work and send a share back.
