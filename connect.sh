@@ -5,7 +5,7 @@ PORT=""
 # Logs into a stratum clinet and gets work
 function login()
 {
-    printf '%s' "$(cat connect.json)" | netcat -v -i1 -q10 $SERVER $PORT;
+    printf '%s' "$(cat connect.json | head -n2)" | netcat -v -i1 -q10 $SERVER $PORT;
 }
 
 function work()
@@ -13,15 +13,22 @@ function work()
 	DATE="`date +%Y.%j.%T`"
 	login > joblog-$DATE
 	
-	HEIGHT=`cat joblog-$DATE | grep -iEo "height\":[0-9]*" | grep -iEo "[0-9]*"`
-	NONCE=`hexdump -n 8 -e '4/4 "%08X" 1 "\n"' /dev/random`
-	JOBID=`cat joblog-$DATE | grep -iEo "job_id\":[0-9]*" | grep -iEo "[0-9]*"`
+	HEIGHT=`cat joblog-$DATE | grep -iEo "height\":[0-9]*" | grep -iEo "[0-9]*" | tail -n1`
+	NONCE=`hexdump -n 8 -e '4/4 "%08X" 1 "\n"' /dev/random | tr -d ' '`
+	JOBID=`cat joblog-$DATE | grep -iEo "job_id\":[0-9]*" | grep -iEo "[0-9]*" | tail -n1`
 	
 	echo "Working on jobid $JOBID on date $DATE at height $HEIGHT with nonce of $NONCE"
 	./mean31x8 -n $NONCE -a -t 8 -r 64 `cat joblog-$DATE | tail -n1 | rev | awk -F'"' '{print $2}' | rev` > worklog-$DATE
-	WORK=`cat worklog-$DATE | grep nonce | rev | awk -F' ' '{print $1 "," $2 "," $3 "," $4}' | rev`
-	
-	submit "$NONCE" "$HEIGHT" "$JOBID" "$WORK"
+	 
+	tail -f work-$DATE | while IFS='' read line; do
+		WORK=`echo $line | grep -E --line-buffered "^nonce" | rev | awk -F' ' '{print $1 "," $2 "," $3 "," $4}' | rev &`
+		submit "$NONCE" "$HEIGHT" "$JOBID" "$WORK"
+		if test `pidof mean31x8` -ne 0
+		then 
+			echo "Solver thread has shutdown, shutting down in ten seconds..."
+			sleep 10 && exit &
+		fi
+	done
 }
 
 function submit()
