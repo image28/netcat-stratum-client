@@ -18,7 +18,7 @@ function work()
 	JOBID=`cat joblog-$DATE | grep -iEo "job_id\":[0-9]*" | grep -iEo "[0-9]*" | tail -n1`
 	
 	echo "Working on jobid $JOBID on date $DATE at height $HEIGHT with nonce of $NONCE"
-	./mean31x8 -n $NONCE -a -t 8 -r 64 `cat joblog-$DATE | tail -n1 | rev | awk -F'"' '{print $2}' | rev` > worklog-$DATE
+	./mean31x8 -n $NONCE -a -t 8 -r 64 `cat joblog-$DATE | tail -n1 | rev | awk -F'"' '{print $2}' | rev` > worklog-$DATE &
 	
 	#https://stackoverflow.com/questions/18892411/shell-script-to-trigger-a-command-with-every-new-line-in-to-a-file
 	tail -f "worklog-$DATE" | grep -E --line-buffered "^nonce" | rev | awk -F' ' '{print $1 "," $2 "," $3 "," $4}' | rev | while IFS=$'\n' read line; do
