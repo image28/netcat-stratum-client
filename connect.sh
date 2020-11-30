@@ -5,7 +5,7 @@ PORT=""
 # Logs into a stratum clinet and gets work
 function login()
 {
-    printf '%s' "$(cat connect.json | head -n2)" | netcat -v -i1 -q10 $SERVER $PORT;
+    printf '%s' "$(cat connect.json | head -n2)" | netcat -v -i1 -q5 $SERVER $PORT;
 }
 
 function work()
@@ -41,7 +41,7 @@ function submit()
 	JOBID="$3"
 	POW="$4"
 	echo "Submitting work"
-	printf '%s' "$(cat submit.json | sed -E s/HEIGHT/$HEIGHT/ | sed -E s/JOBID/$JOBID/ | sed -E s/NONCE/$NONCE/ | sed -E s/POW/$POW/)" # | netcat -v -i1 -q10 $SERVER $PORT;
+	printf '%s' "$(cat submit.json | sed -E s/HEIGHT/$HEIGHT/ | sed -E s/JOBID/$JOBID/ | sed -E s/NONCE/$NONCE/ | sed -E s/POW/$POW/)" # | netcat -v -i1 -q5 $SERVER $PORT;
 	
 }
 
