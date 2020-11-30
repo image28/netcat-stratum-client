@@ -39,7 +39,7 @@ function submit()
 	NONCE="$1"
 	HEIGHT="$2"
 	JOBID="$3"
-	WORK="$4"
+	POW="$4"
 	echo "Submitting work"
 	printf '%s' "$(cat submit.json | sed -E s/HEIGHT/$HEIGHT/ | sed -E s/JOBID/$JOBID/ | sed -E s/NONCE/$NONCE/ | sed -E s/POW/$POW/)" # | netcat -v -i1 -q10 $SERVER $PORT;
 	
