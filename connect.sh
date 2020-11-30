@@ -38,5 +38,5 @@ function submit()
 
 function status()
 {
-	login;
+	printf '%s' "$(cat connect.json)"| grep -v "getworktemplate" | netcat -v -i1 -q10 $SERVER $PORT;
 }
