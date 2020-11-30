@@ -1,0 +1,2 @@
+{"id":"0","jsonrpc":"2.0","method":"login","params":{"agent":"grin-miner","login":"","pass":"x"}}
+{"id":"1","jsonrpc":"2.0","method":"submit", "params":{"edge_bits":31,"height":HEIGHT,"job_id":JOBID,"nonce":NONCE,"pow":POW}}
