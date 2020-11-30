@@ -24,7 +24,8 @@ function work()
 	tail -f "worklog-$DATE" | while IFS='' read line; do
 		WORK=`echo $line | grep -E --line-buffered "^nonce" | rev | awk -F' ' '{print $1 "," $2 "," $3 "," $4}' | rev &`
 		submit "$NONCE" "$HEIGHT" "$JOBID" "$WORK"
-		if test `pidof mean31x8` -ne 0
+		pidof mean31x8
+		if test $? -ne 0
 		then 
 			echo "Solver thread has shutdown, shutting down in ten seconds..."
 			sleep 10 && exit &
