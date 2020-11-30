@@ -21,7 +21,7 @@ function work()
 	./mean31x8 -n $NONCE -a -t 8 -r 64 `cat joblog-$DATE | tail -n1 | rev | awk -F'"' '{print $2}' | rev` > worklog-$DATE
 	
 	#https://stackoverflow.com/questions/18892411/shell-script-to-trigger-a-command-with-every-new-line-in-to-a-file
-	tail -f "worklog-$DATE" | grep -E --line-buffered "^nonce" | rev | awk -F' ' '{print $1 "," $2 "," $3 "," $4}' | rev | while IFS='' read line; do
+	tail -f "worklog-$DATE" | grep -E --line-buffered "^nonce" | rev | awk -F' ' '{print $1 "," $2 "," $3 "," $4}' | rev | while IFS=$'\n' read line; do
 		WORK=`echo $line`
 		submit "$NONCE" "$HEIGHT" "$JOBID" "$WORK"
 		pidof mean31x8
